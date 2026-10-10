@@ -11,8 +11,8 @@ and fills in your report template.
 
 ## 它解决什么
 
-市面上的「AI 实验报告」工具都是：你给资料，它**生成文字**。
-labrunner 反过来——它先把实验**真的跑一遍**，再据实写报告。
+labmate ——报告->文字。
+labrunner ——先把实验**真的跑一遍**，再据实写报告。
 
 | labrunner |
 |---|
@@ -176,8 +176,8 @@ labrunner/
     quality-matrix.md          定档判定细则
     anti-mojibake.md           乱码防护细则
     experience-reuse.md        经验复用模块设计（已定稿，未实现）
-    playbooks/                 攻略模板（空）
-    known-issues/              坑位库模板（空）
+    playbooks/                 攻略模板（null）
+    known-issues/              坑位库模板（null）
   .local/                      个人配置（不上传 Git）
 ```
 
