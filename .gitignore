@@ -1,0 +1,21 @@
+# 个人配置与私有经验：不上传
+.local/*
+!.local/profile.example.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 实验产出
+outputs/
+contrib/
+
+# 脚本备份
+*.bak
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
