@@ -27,6 +27,7 @@ labrunner 反过来——它先把实验**真的跑一遍**，再据实写报告
 
 ```
 阶段 0  收资料       登记你给的 PDF / Word / 图片 / 文本
+阶段 0.5 申请存储    告知用途与预估占用，和你确认产物放哪
 阶段 1  体检         核对齐全性与矛盾，产出《待确认清单》
 阶段 2  对齐         你补齐资料、裁决冲突
 阶段 2.5 经验匹配    （开发中，当前跳过）
@@ -65,7 +66,29 @@ cd labrunner
 chmod +x install.sh && ./install.sh
 ```
 
-安装脚本会把 skill 复制到 `~/.workbuddy/skills/labrunner`。
+### 支持哪些 agent
+
+`SKILL.md` 用的是开放的 Agent Skills 标准，同一份文件在各家通用，
+区别只有**装到哪个目录**。
+
+```powershell
+.\install.ps1 -List             # 看看支持哪些（* 号 = 你机器上已装）
+.\install.ps1                   # 默认只装 WorkBuddy
+.\install.ps1 -Client claude    # 明确指定装到某一个
+```
+
+默认只装 WorkBuddy——labrunner 不往你没点名的目录里写东西。
+要用别的客户端，`-Client` 显式指一下就行。
+
+| 客户端 | 安装位置 | 备注 |
+|---|---|---|
+| WorkBuddy / CodeBuddy | `~/.workbuddy/skills/labrunner` | 主要开发环境 |
+| Claude Code | `~/.claude/skills/labrunner` | 完整支持 |
+| Cursor | `~/.cursor/skills/labrunner` | 完整支持 |
+| Codex CLI | `~/.codex/skills/labrunner` | 完整支持 |
+| OpenCode / Cline / Gemini CLI | `~/.agents/skills/labrunner` | 完整支持 |
+| Kiro | `~/.kiro/agents/labrunner` | 完整支持 |
+| Trae / 豆包 | — | 暂无兼容标准，需手动把 `SKILL.md` 内容贴作系统提示 |
 
 ### 依赖
 
@@ -77,11 +100,14 @@ pip install pywin32
 
 缺少依赖时脚本会给出安装提示，不会静默失败。
 
+**平台差异**：窗口定位（`capture.py`）依赖 Windows + pywin32。
+macOS / Linux 上会自动降级为全屏截图，其余功能不受影响。
+
 ---
 
 ## 使用
 
-在 WorkBuddy / Claude Code 等支持 skill 的 agent 里，直接说：
+在支持 skill 的 agent 里，直接说：
 
 ```
 帮我做这个实验            （然后附上资料）
@@ -89,8 +115,14 @@ pip install pywin32
 跑一下这次的实验作业
 ```
 
+也可以直接用斜杠命令唤起（补全时会显示 `/labrunner [实验资料路径]`）：
+
+```
+/labrunner
+```
+
 它会先核对资料是否齐全、有没有互相矛盾的地方，
-问你要什么质量档，然后申请环境权限，跑起来。
+跟你确认产物要存到哪、要什么质量档，然后申请环境权限，跑起来。
 
 **产出目录**
 

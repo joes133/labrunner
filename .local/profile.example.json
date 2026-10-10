@@ -2,5 +2,7 @@
   "_comment": "Copy this file to profile.json and fill it in. profile.json is gitignored and never uploaded.",
   "student_id": "",
   "name": "",
-  "school": ""
+  "school": "",
+  "_output_root_comment": "Where labrunner writes experiment outputs. Leave empty to be asked every time; set once and it becomes the default.",
+  "output_root": ""
 }
