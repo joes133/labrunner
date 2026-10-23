@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-watermark.py - 高质量档截图水印（B1 样式）
+watermark.py - 高质量档截图水印（全图斜铺）
 
-样式：整图斜铺半透明「学号 姓名」+ 右下角实心角标
+样式：浅灰半透明文字沿对角线方向整图平铺铺满。
+      内容为「姓名 + 学号」直接拼接，中间无空格（如 张三12345678）。
+      不加任何角标 / 边框 / 实心底图。
 
 用法：
-    python watermark.py --input step-01.png --text "2023123456 焦馨"
-    python watermark.py --input a.png --text "..." --output b.png
-    python watermark.py --input a.png --text "..." --no-tile    只加角标
-    python watermark.py --input a.png --text "..." --opacity 40  调整浓度
+    python watermark.py --input step-01.png --text "张三12345678"
+    python watermark.py --input a.png --text "张三12345678" --output b.png
+    python watermark.py --input a.png --text "张三12345678" --opacity 40
+    python watermark.py --input a.png --text "张三12345678" --gap 1.5
 
-默认行为：直接覆盖原图（加 .wm 备份）。用 --output 可另存。
+默认行为：直接覆盖原图（自动留 .bak 备份）。用 --output 可另存。
 
 依赖：pillow
 """
@@ -63,20 +65,19 @@ def load_font(size):
     return ImageFont.load_default()
 
 
-def add_tiled(img, text, font, angle, opacity, color=(90, 90, 90)):
-    """整图斜铺半透明文字"""
+def add_tiled(img, text, font, angle, opacity, gap_scale=1.0, color=(120, 120, 120)):
+    """全图斜铺：浅灰半透明文字沿对角线铺满整张图"""
     w, h = img.size
     # 放大画布再旋转，避免旋转后四角露空
     diag = int((w * w + h * h) ** 0.5) + 4
     layer = Image.new("RGBA", (diag, diag), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
 
-    dummy = ImageDraw.Draw(layer)
-    bbox = dummy.textbbox((0, 0), text, font=font)
+    bbox = d.textbbox((0, 0), text, font=font)
     tw = bbox[2] - bbox[0]
     th = bbox[3] - bbox[1]
-    gap_x = int(tw * 0.8) + 40
-    gap_y = int(th * 2.5) + 40
+    gap_x = int((tw * 0.9 + 32) * gap_scale)
+    gap_y = int((th * 2.6 + 32) * gap_scale)
 
     fill = color + (opacity,)
     y = 0
@@ -98,36 +99,15 @@ def add_tiled(img, text, font, angle, opacity, color=(90, 90, 90)):
     return out.convert("RGB")
 
 
-def add_corner(img, text, font, margin=16):
-    """右下角实心角标"""
-    d = ImageDraw.Draw(img)
-    w, h = img.size
-
-    bbox = d.textbbox((0, 0), text, font=font)
-    tw = bbox[2] - bbox[0]
-    th = bbox[3] - bbox[1]
-
-    pad = 8
-    box_w = tw + pad * 2
-    box_h = th + pad * 2
-    x0 = w - box_w - margin
-    y0 = h - box_h - margin
-
-    d.rectangle([x0, y0, x0 + box_w, y0 + box_h], fill=(25, 25, 25, 235))
-    d.text((x0 + pad - bbox[0], y0 + pad - bbox[1]), text, font=font, fill=(255, 255, 255))
-    return img
-
-
 def main():
-    ap = argparse.ArgumentParser(description="实验截图水印（高质量档专用）")
+    ap = argparse.ArgumentParser(description="实验截图水印（高质量档专用，全图斜铺）")
     ap.add_argument("--input", required=True, help="输入图片")
-    ap.add_argument("--text", required=True, help="水印文字，通常是「学号 姓名」")
+    ap.add_argument("--text", required=True, help='水印文字，格式「姓名+学号」直接拼接，如 "张三12345678"')
     ap.add_argument("--output", help="输出路径，默认覆盖原图")
-    ap.add_argument("--opacity", type=int, default=55, help="斜铺透明度 0-255，默认 55")
-    ap.add_argument("--angle", type=int, default=-30, help="斜铺角度，默认 -30")
+    ap.add_argument("--opacity", type=int, default=55, help="透明度 0-255，越大越明显，默认 55")
+    ap.add_argument("--angle", type=int, default=-30, help="倾斜角度，默认 -30")
+    ap.add_argument("--gap", type=float, default=1.0, help="平铺疏密倍率，>1 更疏，默认 1.0")
     ap.add_argument("--font-size", type=int, help="字号，默认按图宽自适应")
-    ap.add_argument("--no-tile", action="store_true", help="不加斜铺，只要角标")
-    ap.add_argument("--no-corner", action="store_true", help="不加角标，只要斜铺")
     args = ap.parse_args()
 
     src = Path(args.input)
@@ -148,12 +128,7 @@ def main():
         print("警告: 未找到中文字体，中文可能显示为方块", file=sys.stderr)
 
     img = img.convert("RGB")
-
-    if not args.no_tile:
-        img = add_tiled(img, args.text, font, args.angle, args.opacity)
-
-    if not args.no_corner:
-        img = add_corner(img, args.text, font)
+    img = add_tiled(img, args.text, font, args.angle, args.opacity, args.gap)
 
     if args.output:
         dst = Path(args.output)
