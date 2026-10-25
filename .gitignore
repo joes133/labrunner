@@ -19,3 +19,9 @@ contrib/
 .idea/
 .DS_Store
 Thumbs.db
+
+# README 预览临时文件
+_preview*
+_part*.png
+docs/.edge_tmp/
+docs/assets/_preview/

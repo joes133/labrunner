@@ -1,0 +1,29 @@
+<svg viewBox="0 0 860 424" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>经验外挂与内嵌两种方案的对比</title>
+<desc>左侧为外挂方案，实验请求需经过九阶段通用流水线再查询只有一份的 playbooks 经验库；右侧为内嵌方案，环境与坑位直接写进课程级 skill，少一层匹配。</desc>
+<text x="40" y="32" font-size="15" font-weight="500" fill="#1F2937" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">为什么停在这里</text>
+<text x="40" y="54" font-size="12" fill="#6B7683" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">经验该外挂，还是该内嵌？</text>
+
+<rect x="40" y="76" width="370" height="326" rx="14" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="56" y="102" font-size="13" font-weight="500" fill="#633806" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">外挂 · 经验存在库里</text>
+<rect x="56" y="120" width="338" height="44" rx="8" fill="#FFFFFF" stroke="#D8C9A8" stroke-width="0.5"/>
+<text x="74" y="147" font-size="13" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">实验请求</text>
+<rect x="56" y="182" width="338" height="44" rx="8" fill="#FFFFFF" stroke="#D8C9A8" stroke-width="0.5"/>
+<text x="74" y="209" font-size="13" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">九阶段通用流水线</text>
+<rect x="56" y="244" width="338" height="44" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text x="74" y="271" font-size="13" fill="#791F1F" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">查 playbooks · 库存一份</text>
+<rect x="56" y="306" width="338" height="44" rx="8" fill="#FFFFFF" stroke="#D8C9A8" stroke-width="0.5"/>
+<text x="74" y="333" font-size="13" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">交付</text>
+<text x="56" y="380" font-size="12" fill="#A32D2D" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">命中靠运气，匹配不上等于没有</text>
+
+<rect x="450" y="76" width="370" height="326" rx="14" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="466" y="102" font-size="13" font-weight="500" fill="#27500A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">内嵌 · 经验写在路里</text>
+<rect x="466" y="120" width="338" height="44" rx="8" fill="#FFFFFF" stroke="#C0DD97" stroke-width="0.5"/>
+<text x="484" y="147" font-size="13" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">实验请求</text>
+<rect x="466" y="182" width="338" height="72" rx="8" fill="#FFFFFF" stroke="#C0DD97" stroke-width="0.5"/>
+<text x="484" y="208" font-size="13" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">加载课程 skill</text>
+<text x="484" y="234" font-size="11" fill="#6B7683" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">环境 · 坑位 · 截图点全在里面</text>
+<rect x="466" y="272" width="338" height="44" rx="8" fill="#FFFFFF" stroke="#C0DD97" stroke-width="0.5"/>
+<text x="484" y="299" font-size="13" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">交付</text>
+<text x="466" y="380" font-size="12" fill="#0F6E56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif">看标题就知道用不用得上</text>
+</svg>
